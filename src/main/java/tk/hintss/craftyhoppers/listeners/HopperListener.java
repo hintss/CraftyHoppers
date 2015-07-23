@@ -30,13 +30,13 @@ public class HopperListener implements Listener {
 
     @EventHandler
     public void onItemMove(InventoryMoveItemEvent event) {
-        if (!(event.getDestination() instanceof Hopper)) {
+        if (!(event.getDestination().getHolder() instanceof Hopper)) {
             return;
         }
 
         boolean shouldCancel = false;
 
-        shouldCancel = !hopperShouldIngest((Hopper) event.getDestination().getHolder(), event.getItem());
+        shouldCancel = !hopperShouldIngest(((Hopper) event.getDestination().getHolder()), event.getItem());
 
         if (shouldCancel) {
             event.setCancelled(true);
