@@ -44,6 +44,8 @@ public class HopperListener implements Listener {
     }
 
     private boolean hopperShouldIngest(Hopper h, ItemStack is) {
+        boolean negativeEvidence = false;
+
         for (Sign sign : Utils.getAttachedSigns(h.getBlock())) {
             // item sorting
             if (sign.getLine(0).equals("[sort]")) {
@@ -51,10 +53,10 @@ public class HopperListener implements Listener {
                     if (Utils.itemMatchesList(sign.getLine(i), is)) return true;
                 }
 
-                return false;
+                negativeEvidence = true;
             }
         }
 
-        return true;
+        return !negativeEvidence;
     }
 }
