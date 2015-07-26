@@ -10,6 +10,7 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -127,8 +128,20 @@ public class Utils {
     }
 
     public List<ItemStack> getRecipeIngredients(Recipe r) {
-        if (r instanceof ShapelessRecipe) {
+        List<ItemStack> ingredients = new ArrayList<>();
 
+        if (r instanceof ShapelessRecipe) {
+            outer:
+            for (ItemStack is : ((ShapelessRecipe) r).getIngredientList()) {
+                for (ItemStack i : ingredients) {
+                    if (i.getType() == is.getType() && i.getData() == is.getData()) {
+                        i.setAmount(is.getAmount() + i.getAmount());
+                        continue outer;
+                    }
+                }
+
+                ingredients.add(is);
+            }
         } else if (r instanceof ShapedRecipe) {
 
         }
