@@ -11,6 +11,7 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -143,8 +144,20 @@ public class Utils {
                 ingredients.add(is);
             }
         } else if (r instanceof ShapedRecipe) {
+            HashMap<Character, Integer> ingredientCount = new HashMap<>();
 
+            for (String s : ((ShapedRecipe) r).getShape()) {
+                for (char c : s.toCharArray()) {
+                    if (ingredientCount.containsKey(c)) {
+                        ingredientCount.put(c, ingredientCount.get(c) + 1);
+                    } else {
+                        ingredientCount.put(c, 1);
+                    }
+                }
+            }
         }
+
+        return ingredients;
     }
 
     public static boolean isInt(String s) {
