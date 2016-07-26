@@ -55,7 +55,7 @@ public class HopperListener implements Listener {
 
         for (Sign sign : Utils.getAttachedSigns(h.getBlock())) {
             // item sorting
-            if (sign.getLine(0).equals("[sort]")) {
+            if (sign.getLine(0).equalsIgnoreCase("[sort]")) {
                 for (int i = 1; i < 4; i++) {
                     if (Utils.itemMatchesList(sign.getLine(i), is)) {
                         return true;
@@ -63,7 +63,7 @@ public class HopperListener implements Listener {
                 }
 
                 negate = true;
-            } else if (sign.getLine(0).equals("[craft]")) {
+            } else if (sign.getLine(0).equalsIgnoreCase("[craft]")) {
                 // item crafting
                 // require an adjacent workbench
                 if (!Utils.hasAdjacent(h.getBlock(), Material.WORKBENCH)) {
