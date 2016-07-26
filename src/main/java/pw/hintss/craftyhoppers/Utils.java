@@ -10,10 +10,7 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by hintss on 7/22/2015.
@@ -21,6 +18,8 @@ import java.util.List;
 public class Utils {
     private static BlockFace[] SIGN_DIRECTIONS = new BlockFace[] {BlockFace.NORTH, BlockFace.SOUTH, BlockFace.EAST, BlockFace.WEST, BlockFace.UP};
     private static BlockFace[] BLOCK_DIRECTIONS = new BlockFace[] {BlockFace.NORTH, BlockFace.SOUTH, BlockFace.EAST, BlockFace.WEST, BlockFace.UP, BlockFace.DOWN};
+
+    public static Set<Material> SMELTABLE = new HashSet<>();
 
     /**
      * Gets all the signs attached to a block. Will check to make sure the sign is actually attached and not simply adjacent.
@@ -71,6 +70,10 @@ public class Utils {
         String[] split = s.split(",");
 
         for (String item : split) {
+            if ((item.equalsIgnoreCase("smelt") || item.equalsIgnoreCase("smeltable")) && SMELTABLE.contains(is.getType())) {
+                return true;
+            }
+
             if (item.contains(":")) {
                 String[] bits = item.split(":");
 

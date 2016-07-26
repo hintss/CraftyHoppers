@@ -57,7 +57,9 @@ public class HopperListener implements Listener {
             // item sorting
             if (sign.getLine(0).equals("[sort]")) {
                 for (int i = 1; i < 4; i++) {
-                    if (Utils.itemMatchesList(sign.getLine(i), is)) return true;
+                    if (Utils.itemMatchesList(sign.getLine(i), is)) {
+                        return true;
+                    }
                 }
 
                 negate = true;
