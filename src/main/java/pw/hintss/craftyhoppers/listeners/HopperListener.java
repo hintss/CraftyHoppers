@@ -25,7 +25,7 @@ public class HopperListener implements Listener {
             return;
         }
 
-        boolean shouldCancel = false;
+        boolean shouldCancel;
 
         shouldCancel = !hopperShouldIngest(((Hopper) event.getInventory().getHolder()), event.getItem().getItemStack());
 
@@ -40,7 +40,7 @@ public class HopperListener implements Listener {
             return;
         }
 
-        boolean shouldCancel = false;
+        boolean shouldCancel;
 
         shouldCancel = !hopperShouldIngest(((Hopper) event.getDestination().getHolder()), event.getItem());
 
@@ -51,7 +51,7 @@ public class HopperListener implements Listener {
 
     private boolean hopperShouldIngest(Hopper h, ItemStack is) {
         // whether this itemstack has encountered a sign that didn't like it yet
-        boolean negativeEvidence = false;
+        boolean negate = false;
 
         for (Sign sign : Utils.getAttachedSigns(h.getBlock())) {
             // item sorting
@@ -60,10 +60,9 @@ public class HopperListener implements Listener {
                     if (Utils.itemMatchesList(sign.getLine(i), is)) return true;
                 }
 
-                negativeEvidence = true;
+                negate = true;
             } else if (sign.getLine(0).equals("[craft]")) {
                 // item crafting
-
                 // require an adjacent workbench
                 if (!Utils.hasAdjacent(h.getBlock(), Material.WORKBENCH)) {
                     continue;
@@ -77,10 +76,10 @@ public class HopperListener implements Listener {
 
                 Inventory i = h.getInventory();
 
-
+                // TODO - stuff
             }
         }
 
-        return !negativeEvidence;
+        return !negate;
     }
 }
