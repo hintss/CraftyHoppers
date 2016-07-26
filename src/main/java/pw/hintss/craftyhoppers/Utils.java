@@ -1,4 +1,4 @@
-package tk.hintss.craftyhoppers;
+package pw.hintss.craftyhoppers;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -22,12 +22,17 @@ public class Utils {
     private static BlockFace[] SIGN_DIRECTIONS = new BlockFace[] {BlockFace.NORTH, BlockFace.SOUTH, BlockFace.EAST, BlockFace.WEST, BlockFace.UP};
     private static BlockFace[] BLOCK_DIRECTIONS = new BlockFace[] {BlockFace.NORTH, BlockFace.SOUTH, BlockFace.EAST, BlockFace.WEST, BlockFace.UP, BlockFace.DOWN};
 
-    public static LinkedList<Sign> getAttachedSigns(Block b) {
-        if (b == null) {
-            return null;
-        }
-
+    /**
+     * Gets all the signs attached to a block. Will check to make sure the sign is actually attached and not simply adjacent.
+     * @param b the block to look for attached signs on
+     * @return a List of the BlockStates of the signs
+     */
+    public static List<Sign> getAttachedSigns(Block b) {
         LinkedList<Sign> signs = new LinkedList<>();
+
+        if (b == null) {
+            return signs;
+        }
 
         for (BlockFace bf : SIGN_DIRECTIONS) {
             Block possibleSign = b.getRelative(bf);
@@ -41,6 +46,12 @@ public class Utils {
         return signs;
     }
 
+    /**
+     * Checks if the given block has a block of material mat touching it.
+     * @param b the block we're looking for blocks next to
+     * @param mat the type of block we're looking for
+     * @return true if an attached block has the right type
+     */
     public static boolean hasAdjacent(Block b, Material mat) {
         if (b == null) {
             return false;
@@ -128,6 +139,12 @@ public class Utils {
         return recipes;
     }
 
+    /**
+     * Gets a list of ingredients needed to make a given recipe. Only implemented for crafting recpies.
+     * @param r The recipe.
+     * @return A list of ItemStacks. ingredients needing multiple will be condensed into one itemstack with >1 quantity.
+     */
+
     public List<ItemStack> getRecipeIngredients(Recipe r) {
         List<ItemStack> ingredients = new ArrayList<>();
 
@@ -154,6 +171,13 @@ public class Utils {
                         ingredientCount.put(c, 1);
                     }
                 }
+            }
+
+            for (Character c : ((ShapedRecipe) r).getIngredientMap().keySet()) {
+                ItemStack is = ((ShapedRecipe) r).getIngredientMap().get(c);
+                is.setAmount(ingredientCount.get(c));
+
+                ingredients.add(is);
             }
         }
 

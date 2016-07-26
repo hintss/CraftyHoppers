@@ -1,4 +1,4 @@
-package tk.hintss.craftyhoppers.listeners;
+package pw.hintss.craftyhoppers.listeners;
 
 import org.bukkit.Material;
 import org.bukkit.block.Hopper;
@@ -10,7 +10,7 @@ import org.bukkit.event.inventory.InventoryPickupItemEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
-import tk.hintss.craftyhoppers.Utils;
+import pw.hintss.craftyhoppers.Utils;
 
 import java.util.LinkedList;
 import java.util.List;
