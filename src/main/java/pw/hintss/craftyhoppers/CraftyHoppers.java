@@ -1,6 +1,7 @@
 package pw.hintss.craftyhoppers;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -22,6 +23,11 @@ public class CraftyHoppers extends JavaPlugin {
         new BukkitRunnable() {
             @Override
             public void run() {
+                // generate list of material names
+                for (Material m : Material.values()) {
+                    Utils.MATERIAL_NAMES.put(m.name(), m);
+                }
+
                 // generate the list of smeltable items
                 for (Iterator<Recipe> iter = Bukkit.recipeIterator(); iter.hasNext(); ) {
                     Recipe r = iter.next();

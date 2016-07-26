@@ -19,6 +19,7 @@ public class Utils {
     private static BlockFace[] SIGN_DIRECTIONS = new BlockFace[] {BlockFace.NORTH, BlockFace.SOUTH, BlockFace.EAST, BlockFace.WEST, BlockFace.UP};
     private static BlockFace[] BLOCK_DIRECTIONS = new BlockFace[] {BlockFace.NORTH, BlockFace.SOUTH, BlockFace.EAST, BlockFace.WEST, BlockFace.UP, BlockFace.DOWN};
 
+    public static Map<String, Material> MATERIAL_NAMES = new HashMap<>();
     public static Set<Material> SMELTABLE = new HashSet<>();
 
     /**
@@ -89,6 +90,10 @@ public class Utils {
                 if (Short.valueOf(damage) != isDmg) {
                     continue;
                 }
+            }
+
+            if (is.getType() == MATERIAL_NAMES.get(item.toUpperCase())) {
+                return true;
             }
 
             if (!isInt(item)) {
