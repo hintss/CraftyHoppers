@@ -25,11 +25,10 @@ public class HopperListener implements Listener {
             return;
         }
 
-        boolean shouldCancel;
+        Hopper h = ((Hopper) event.getInventory().getHolder());
+        List<Sign> signs = Utils.getAttachedSigns(h.getBlock());
 
-        shouldCancel = !hopperShouldIngest(((Hopper) event.getInventory().getHolder()), event.getItem().getItemStack());
-
-        if (shouldCancel) {
+        if (!hopperShouldIngest(h, signs, event.getItem().getItemStack())) {
             event.setCancelled(true);
         }
     }
@@ -40,20 +39,19 @@ public class HopperListener implements Listener {
             return;
         }
 
-        boolean shouldCancel;
+        Hopper h = ((Hopper) event.getDestination().getHolder());
+        List<Sign> signs = Utils.getAttachedSigns(h.getBlock());
 
-        shouldCancel = !hopperShouldIngest(((Hopper) event.getDestination().getHolder()), event.getItem());
-
-        if (shouldCancel) {
+        if (!hopperShouldIngest(h, signs, event.getItem())) {
             event.setCancelled(true);
         }
     }
 
-    private boolean hopperShouldIngest(Hopper h, ItemStack is) {
+    private boolean hopperShouldIngest(Hopper h, List<Sign> signs, ItemStack is) {
         // whether this itemstack has encountered a sign that didn't like it yet
         boolean negate = false;
 
-        for (Sign sign : Utils.getAttachedSigns(h.getBlock())) {
+        for (Sign sign : signs) {
             // item sorting
             if (sign.getLine(0).equalsIgnoreCase("[sort]")) {
                 for (int i = 1; i < 4; i++) {
