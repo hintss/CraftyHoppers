@@ -1,6 +1,7 @@
 package pw.hintss.craftyhoppers.listeners;
 
 import org.bukkit.Material;
+import org.bukkit.block.BlockState;
 import org.bukkit.block.Hopper;
 import org.bukkit.block.Sign;
 import org.bukkit.event.EventHandler;
@@ -35,7 +36,7 @@ public class HopperListener implements Listener {
 
     @EventHandler
     public void onItemMove(InventoryMoveItemEvent event) {
-        if (!(event.getDestination().getHolder() instanceof Hopper)) {
+        if (!(event.getDestination().getHolder() instanceof BlockState)) {
             return;
         }
 
