@@ -7,6 +7,7 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import pw.hintss.craftyhoppers.listeners.HopperListener;
+import pw.hintss.craftyhoppers.listeners.ItemMoveListener;
 
 import java.util.Iterator;
 
@@ -17,6 +18,7 @@ public class CraftyHoppers extends JavaPlugin {
     @Override
     public void onEnable() {
         Bukkit.getPluginManager().registerEvents(new HopperListener(), this);
+        Bukkit.getPluginManager().registerEvents(new ItemMoveListener(this), this);
 
         // start generating lists based on recipes
         // this is done after startup just in case other plugins add/modify recipes
